@@ -27,6 +27,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
+    "electron-log": "^4.4.8",
     "fs-extra": "^10.1.0",
     "mkdirp": "^1.0.4",
     "node-addon-api": "^5.0.0"

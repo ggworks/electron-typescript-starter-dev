@@ -1,9 +1,10 @@
-import { app as ElectronApp, BrowserWindow } from 'electron'
+import { BrowserWindow } from 'electron'
 import { Menu, Tray } from 'electron'
 import { ipcMain } from 'electron'
 import { shell } from 'electron'
 import * as path from 'path'
 import { WebEvents } from './events'
+import log from 'electron-log'
 
 enum AppWindows {
   main = 'main',
@@ -43,10 +44,11 @@ class Application {
       window.loadURL(global.CONFIG.entryUrl)
 
       window.on('ready-to-show', () => {
-        console.log('main window loaded')
+        log.info('mainWindow loaded')
       })
 
       window.webContents.on('did-fail-load', () => {
+        log.info('mainWindow did-fail-load')
         window.reload()
       })
 
@@ -261,7 +263,7 @@ class Application {
   }
 
   private webReady() {
-    console.log(`webReady`)
+    log.info(`webReady`)
     this.isWebReady = true
     this.closeWindow(AppWindows.loading)
     this.showAndFocusWindow(AppWindows.main)

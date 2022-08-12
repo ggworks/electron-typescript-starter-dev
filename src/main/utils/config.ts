@@ -1,4 +1,4 @@
-import { app as ElectronApp } from 'electron'
+import { app } from 'electron'
 import * as path from 'path'
 
 function fileUrl(str: string) {
@@ -16,11 +16,11 @@ const CONFIG: any = {}
 
 CONFIG.appName = 'myapp'
 
-CONFIG.appDataDir = path.join(ElectronApp.getPath('appData'), CONFIG.appName)
+CONFIG.appDataDir = path.join(app.getPath('appData'), CONFIG.appName)
 
 CONFIG.distDir = path.join(__dirname, '../../')
 
-if (!ElectronApp.isPackaged) {
+if (!app.isPackaged) {
   CONFIG.entryUrl = fileUrl(path.join(CONFIG.distDir, 'index/index.html'))
   CONFIG.endPoint = fileUrl(path.join(CONFIG.distDir))
 

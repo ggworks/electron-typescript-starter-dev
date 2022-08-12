@@ -1,5 +1,5 @@
 import * as fse from 'fs-extra'
-
+import log from 'electron-log'
 class PersistenceSettings {
   private config: any
   constructor() {
@@ -11,7 +11,7 @@ class PersistenceSettings {
       try {
         this.config = JSON.parse(fse.readFileSync(global.CONFIG.settingsFile, 'utf8'))
       } catch (err) {
-        console.log(err)
+        log.error(err)
         this.config = {}
       }
     } else {
