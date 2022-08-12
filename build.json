@@ -1,0 +1,33 @@
+{
+  "productName": "app",
+  "compression": "maximum",
+  "directories": {
+    "buildResources": "./assets",
+    "output": "./release"
+  },
+  "win": {
+    "icon": "app.ico"
+  },
+  "electronDist": "./node_modules/electron/dist",
+  "npmRebuild": false,
+  "asar": true,
+  "extraResources": [
+    "assets",
+    {
+      "from": "nativelib",
+      "to": "nativelib"
+    }
+  ],
+  "files": [
+    {
+      "from": "dist",
+      "to": "dist",
+      "filter": ["**/*", "!**/*.map"]
+    },
+    {
+      "from": ".",
+      "to": ".",
+      "filter": ["package.json"]
+    }
+  ]
+}
