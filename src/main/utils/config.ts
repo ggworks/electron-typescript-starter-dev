@@ -1,43 +1,40 @@
-import { app as ElectronApp } from "electron"
-import * as path from "path"
-import "./debug"
+import { app as ElectronApp } from 'electron'
+import * as path from 'path'
 
 function fileUrl(str: string) {
-    let pathName = path.resolve(str).replace(/\\/g, "/")
+  let pathName = path.resolve(str).replace(/\\/g, '/')
 
-    // Windows drive letter must be prefixed with a slash
-    if (pathName[0] !== "/") {
-        pathName = "/" + pathName
-    }
+  // Windows drive letter must be prefixed with a slash
+  if (pathName[0] !== '/') {
+    pathName = '/' + pathName
+  }
 
-    return encodeURI("file://" + pathName)
+  return encodeURI('file://' + pathName)
 }
 
 const CONFIG: any = {}
 
-CONFIG.appName = "myapp"
+CONFIG.appName = 'myapp'
 
-CONFIG.appDataDir = path.join(ElectronApp.getPath("appData"), CONFIG.appName)
+CONFIG.appDataDir = path.join(ElectronApp.getPath('appData'), CONFIG.appName)
 
-CONFIG.distDir = path.join(__dirname, "../../")
+CONFIG.distDir = path.join(__dirname, '../../')
 
-if (global.DEBUG) {
-    CONFIG.entryUrl = fileUrl(path.join(CONFIG.distDir, "index/index.html"))
-    CONFIG.endPoint = fileUrl(path.join(CONFIG.distDir))
+if (!ElectronApp.isPackaged) {
+  CONFIG.entryUrl = fileUrl(path.join(CONFIG.distDir, 'index/index.html'))
+  CONFIG.endPoint = fileUrl(path.join(CONFIG.distDir))
 
-    CONFIG.assetsDir = path.join(__dirname, "../../../", "assets")
+  CONFIG.assetsDir = path.join(__dirname, '../../../', 'assets')
 } else {
-    CONFIG.entryUrl = fileUrl(path.join(CONFIG.distDir, "index/index.html"))
-    CONFIG.endPoint = fileUrl(path.join(CONFIG.distDir))
+  CONFIG.entryUrl = fileUrl(path.join(CONFIG.distDir, 'index/index.html'))
+  CONFIG.endPoint = fileUrl(path.join(CONFIG.distDir))
 
-    CONFIG.assetsDir = path.join(process.resourcesPath!, "assets")
+  CONFIG.assetsDir = path.join(process.resourcesPath!, 'assets')
 }
 
-CONFIG.loadingUrl = fileUrl(
-    path.join(CONFIG.distDir, "index/loading/loading.html")
-)
+CONFIG.loadingUrl = fileUrl(path.join(CONFIG.distDir, 'index/loading/loading.html'))
 
-CONFIG.settingsFile = path.join(CONFIG.appDataDir, "settings.json")
+CONFIG.settingsFile = path.join(CONFIG.appDataDir, 'settings.json')
 
 global.CONFIG = CONFIG
 

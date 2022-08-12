@@ -90,22 +90,20 @@ class Application {
       width: 800,
       show: false,
       webPreferences: {
-        nodeIntegration: true,
         preload: PREADLOAD_JS,
+        sandbox: false,
       },
     }
-    const mainWindow = this.createWindow(AppWindows.main, options)
-    this.mainWindow = mainWindow
-    return mainWindow
+    this.mainWindow = this.createWindow(AppWindows.main, options)
+    return this.mainWindow
   }
 
   public openMainWindow() {
-    let mainWindow = this.mainWindow
-    if (!mainWindow) {
-      mainWindow = this.createMainWindow()
+    if (!this.mainWindow) {
+      this.createMainWindow()
     }
-    mainWindow!.show()
-    mainWindow!.focus()
+    this.mainWindow?.show()
+    this.mainWindow?.focus()
   }
 
   public closeMainWindow() {
@@ -127,10 +125,13 @@ class Application {
     if (!loadingWindow) {
       const options = {
         width: 360,
-        height: 600,
+        height: 540,
         show: false,
         frame: false,
         resizable: false,
+        fullscreenable: false,
+        center: true,
+        movable: true,
       }
       loadingWindow = this.createWindow(AppWindows.loading, options)
       loadingWindow.loadURL(global.CONFIG.loadingUrl)
@@ -273,6 +274,8 @@ class Application {
       ...options,
       webPreferences: {
         nodeIntegration: false,
+        contextIsolation: true,
+        sandbox: true,
         ...webPreferences,
       },
     }

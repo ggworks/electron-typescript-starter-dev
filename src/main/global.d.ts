@@ -1,5 +1,4 @@
 declare global {
-  var DEBUG: any
   var CONFIG: {
     distDir: string
     assetsDir: string

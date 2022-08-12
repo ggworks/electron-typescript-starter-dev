@@ -16,6 +16,7 @@ class PersistenceSettings {
       }
     } else {
       this.config = {}
+      this.save()
     }
   }
 
